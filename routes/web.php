@@ -35,9 +35,6 @@ use App\Http\Controllers\UserController;
 use App\Models\Patient;
 use App\Models\Poly;
 
-// Route::get('/', function () {
-// 	return redirect('/dashboard');
-// })->middleware('auth');
 
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
@@ -53,47 +50,72 @@ Route::post('/create-antrian', [PatientController::class, 'store'])->name('tamba
 Route::middleware(['auth', 'admin'])->group(function () {
     //Dashboard Route
     Route::get('/dashboard', [AdminController::class, 'index'])->name('home');
+    Route::get('/setting-admin', [AdminController::class, 'viewAdmin'])->name('setAdmin');
+    Route::get('/create-admin', [AdminController::class, 'createAdmin'])->name('createAdmin');
+    Route::post('/store-admin', [AdminController::class, 'storeAdmin'])->name('storeAdmin');
+    Route::post('/delete-admin/{id}', [AdminController::class, 'deleteAdmin'])->name('deleteAdmin');
+
+
     Route::get('/setting-user', [AdminController::class, 'viewUser'])->name('setUser');
-    Route::resource('SettingUser', SettingUserController::class);
+    Route::get('/create-user', [AdminController::class, 'createUser'])->name('createUser');
+    Route::post('/store-user', [AdminController::class, 'storeUser'])->name('storeUser');
+    Route::get('/details-user/{id}', [AdminController::class, 'detailsUser'])->name('detailsUser');
+    Route::post('/update-user/{id}', [AdminController::class, 'updateUser'])->name('updateUser');
+    Route::post('/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
+
     Route::get('/setting-doktor', [AdminController::class, 'viewDoktor'])->name('setDoktor');
+    Route::get('/create-doktor', [AdminController::class, 'createDoktor'])->name('createDoktor');
+    Route::post('/store-doktor', [AdminController::class, 'storeDoktor'])->name('storeDoktor');
+    Route::get('/details-doktor/{id}', [AdminController::class, 'detailsDoktor'])->name('detailsDoktor');
+    Route::post('/update-doktor/{id}', [AdminController::class, 'updateDoktor'])->name('updateDoktor');
+    Route::post('/delete-doktor/{id}', [AdminController::class, 'deleteDoktor'])->name('deleteDoktor');
+
     Route::get('/setting-poli', [AdminController::class, 'viewPoli'])->name('setPoli');
+    Route::get('/create-poli', [AdminController::class, 'createPoli'])->name('createPoli');
+    Route::post('/store-poli', [AdminController::class, 'storePoli'])->name('storePoli');
+    Route::get('/details-poli/{id}', [AdminController::class, 'detailsPoli'])->name('detailsPoli');
+    Route::post('/update-poli/{id}', [AdminController::class, 'updatePoli'])->name('updatePoli');
+    Route::post('/delete-poli/{id}', [AdminController::class, 'deletePoli'])->name('deletePoli');
+});
+
+//DOKTOR LOGIN DAN SELESAI ( ARYA )!!
+Route::middleware(['auth', 'doktor'])->group(function () {
+    // Route::get('/user', [UserController::class, 'index'])->name('userIndex');
+    Route::get('/doctor', [DoktorController::class, 'index'])->name('dokAntrian');
+    Route::post('/getAntrian/{patient:antrian}', [DoktorController::class, 'getAntrian'])->name('ambil-antrian');
+    Route::post('/deleteAntrian/{patient:antrian}', [DoktorController::class, 'deleteAntrian'])->name('hapus-antrian');
+    Route::post('/nextAntrian/{patient:antrian}', [DoktorController::class, 'nextAntrian'])->name('antrian-selanjutnya');
 });
 
 Route::middleware(['auth'])->group(function () {
-    //Dashboard Route
-    //doktor
-
-    Route::get('/doctor', [DoktorController::class, 'index']);
-
     Route::get('/tiket', function () {
         return view('tiket.welcome', [
             'polies' => Poly::all()
         ]);
-    });
+    })->name('tiket');
     Route::post('/tiket', [tiketAjaxControllet::class, 'masuk']);
-
     Route::get('/get-polie', [tiketAjaxControllet::class, 'index']);
     Route::post('/tiketAjax', [tiketAjaxControllet::class, 'coba'])->name('create-antrian');
-
     Route::get('/testevent', [DoktorController::class, 'testing']);
     Route::get('/monitor', function () {
         return view('Monitor.welcome', [
             'poly' => Poly::paginate(4)
         ]);
-    });
-    //Route::get('/user', [UserController::class, 'index'])->name('userIndex');
-    Route::view('/antrian', 'mainDoktor.index');
-
-    Route::post('/getAntrian/{patient:antrian}', [DoktorController::class, 'getAntrian'])->name('ambil-antrian');
-    Route::post('/deleteAntrian/{patient:antrian}', [DoktorController::class, 'deleteAntrian'])->name('hapus-antrian');
-    Route::post('/nextAntrian/{patient:antrian}', [DoktorController::class, 'nextAntrian'])->name('antrian-selanjutnya');
-
-    Route::get('/antrian-send', [DoktorController::class, 'index'])->name('dokAntrian');
+    })->name('monitor');
+    Route::get('/user', [UserController::class, 'index'])->name('userIndex');
+    Route::get('profile', [UserProfileController::class, 'show'])->name('profile');
 
     Route::get('/', function () {
-        return redirect()->route('userIndex');
+        return redirect()->route('profile');
     });
 });
+
+
+
+
+
+
+
 
 
 //TESTING JANGAN DI UBAH!!

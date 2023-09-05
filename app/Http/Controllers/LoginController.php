@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Password;
 
@@ -26,30 +28,32 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
 
-        // Attempt authentication with the "users" table
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            return redirect()->intended('user');
-        } else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            User::where('id', $user->id)->update(['is_online' => '1']);
+            // Check the user's role and redirect accordingly
+            if ($user->role == 1) {
+                return redirect()->intended('profile');
+            } elseif ($user->role == 2) {
+                return redirect()->intended('doctor');
+            } elseif ($user->role == 3) {
+                return redirect()->intended('dashboard');
+            }
         }
 
-        // // Attempt authentication with the "admins" table
-        // if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('dashboard');
-        // }
-
-        // If both attempts fail, return back with an error message
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+            'email' => 'The provided credentials do not match our dfdfh records.',
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)
     {
+
+        $user = Auth::user();
+        User::where('id', $user->id)->update(['is_online' => '0']);
+
         Auth::logout();
 
         $request->session()->invalidate();

@@ -20,7 +20,13 @@ class Doctor extends Model implements Authenticatable
     protected $guarded = ['id'];
     protected $with = ['poly'];
 
-    public function poly(){
+    public function poly()
+    {
         return $this->belongsTo(Poly::class, 'poly_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

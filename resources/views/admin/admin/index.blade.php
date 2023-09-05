@@ -8,8 +8,8 @@
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="d-flex">
-                        <h6>All User Registered</h6>
-                        <a href="{{ route('createUser')}}" class=" ms-auto me-4"><button class="btn btn-info btn-sm"
+                        <h6>All Admin Registered</h6>
+                        <a href="{{ route('createAdmin')}}" class=" ms-auto me-4"><button class="btn btn-info btn-sm"
                                 type="button">Add
                                 Account</button></a>
                     </div>
@@ -25,12 +25,6 @@
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         LongName</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Role Account</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Status</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Employed</th>
@@ -49,30 +43,21 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ $data->firstname }}</p>
-                                        <p class="text-xs text-secondary mb-0">{{ $data->lastname }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">{{
-                                            $data->role }}</span>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        @if ($data->is_online == 1)
-                                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                                        @else
-                                        <span class="badge badge-sm bg-gradient-danger">Offline</span>
-                                        @endif
+                                        <p class="text-xs font-weight-bold mb-0">{{ $data->name }}</p>
                                     </td>
                                     <td class="align-middle text-center">
                                         <span class="text-secondary text-xs font-weight-bold">{{
                                             $data->created_at }}</span>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ route('detailsUser', ['id' => $data->id]) }}"
-                                            class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                            data-original-title="Edit user">
-                                            Details
-                                        </a>
+                                        <form action="{{ route('deleteAdmin', ['id' => $data->id]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="btn btn-link text-danger font-weight-bold text-xs"
+                                                data-toggle="tooltip" data-original-title="Delete User">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

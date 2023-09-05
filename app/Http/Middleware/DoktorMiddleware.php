@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class DoktorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class AdminMiddleware
     {
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user->role == 3) {
+            if ($user->role == 2 || $user->role == 3) {
                 return $next($request);
             }
         }

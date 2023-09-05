@@ -22,6 +22,7 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'email',
+        'is_online',
         'password',
         'address',
         'city',
@@ -53,10 +54,15 @@ class User extends Authenticatable
      * Always encrypt the password when it is updated.
      *
      * @param $value
-    * @return string
-    */
+     * @return string
+     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }
