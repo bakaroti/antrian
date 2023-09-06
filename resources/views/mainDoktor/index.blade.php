@@ -1,73 +1,73 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
-    <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Tabel Antrian (Poli : {{ $doctors->poly->nama }})</h6>
-                    </div>
-                    <div class="card-body px-5 py-3">
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <table class="table table-striped my-4" id="myTable" style="max-width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-md">#</th>
-                                            <th class="col-md-4">Nomer Antrian</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table-content">
-                                        @foreach ($doctors->poly->patient as $doctor)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $doctor->antrian }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+@include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
+<link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Tabel Antrian (Poli : {{ $doctors->poly->nama }})</h6>
+                </div>
+                <div class="card-body px-5 py-3">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <table class="table table-striped my-4" id="myTable" style="max-width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md">#</th>
+                                        <th class="col-md-4">Nomer Antrian</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-content">
+                                    @foreach ($doctors->poly->patient as $doctor)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $doctor->antrian }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
 
-                                <button id="ambil-antrian" class="btn btn-succes my-3"
-                                    @if ($doctors->poly->status) style="display: none;" @endif>Ambil Antrian</button>
-                                <button id="antrian-selanjutnya" class="btn btn-warning my-3"
-                                    @if (!$doctors->poly->status || count($doctors->poly->patient) < 2) style="display: none;" @endif>Antrian
-                                    Selanjutnya</button>
-                                <button id="hapus-antrian" class="btn btn-danger my-3"
-                                    @if (!$doctors->poly->status) style="display: none;" @endif>Hapus Antrian</button>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="card border rounded-2 shadow-lg p-3 mb-5 bg-body text-center">
-                                    <div class="border rounded-3">
-                                        <h5 style="font-size: 2rem;">Antrian Sekarang</h5>
-                                    </div>
 
-                                    <div>
-                                        <p class="badge badge-primary" style="font-size: 3rem; color: black;"
-                                            id="nomor">
-                                            {{ $doctors->poly->status ? $doctors->poly->patient[0]->antrian : '-' }}</p>
-                                    </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="card border rounded-2 shadow-lg p-3 mb-5 bg-body text-center">
+                                <div class="border rounded-3">
+                                    <h5 style="font-size: 2rem;">Antrian Sekarang</h5>
+                                </div>
+
+                                <div>
+                                    <p class="badge badge-primary" style="font-size: 3rem; color: black;" id="nomor">
+                                        {{ $doctors->poly->status ? $doctors->poly->patient[0]->antrian : '-' }}</p>
                                 </div>
                             </div>
+                            <button id="ambil-antrian" class="btn btn-succes my-3" @if ($doctors->poly->status)
+                                style="display: none;" @endif>Ambil Antrian</button>
+                            <button id="antrian-selanjutnya" class="btn btn-warning my-3" @if (!$doctors->poly->status
+                                || count($doctors->poly->patient) < 2) style="display: none;" @endif>Antrian
+                                    Selanjutnya</button>
+                            <button id="hapus-antrian" class="btn btn-danger my-3" @if (!$doctors->poly->status)
+                                style="display: none;" @endif>Hapus Antrian</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer')
     </div>
+    @include('layouts.footers.auth.footer')
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-        crossorigin="anonymous"></script>
-    <script>
-        var stat = {{ $doctors->poly->status }};
-    </script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
+<script>
+    var stat = {{ $doctors->poly->status }};
+</script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
             var tbody = document.querySelector('#table-content');
             Echo.channel(`doctor-antrian`)
                 .listen('DoctorAntrian', (e) => {
@@ -132,10 +132,10 @@
 
                 });
         });
-    </script>
+</script>
 
-    <script>
-        $('#ambil-antrian').click(function() {
+<script>
+    $('#ambil-antrian').click(function() {
             stat = 1;
             // console.log($('#poli').val());
             var tbody = document.getElementById("table-content");
@@ -220,10 +220,10 @@
                 }
             })
         });
-    </script>
-    {{-- <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> --}}
+</script>
+{{-- <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> --}}
 
-    {{-- <script>
+{{-- <script>
     $(document).ready(function() {
         var dataTable = $('#myTable').DataTable({
             //processing: true,
