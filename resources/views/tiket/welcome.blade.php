@@ -5,8 +5,11 @@
   <link rel="icon" href="./img/logo-rs2.png" type="image/x-icon">
   <title>Rumah Sakit</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  {{-- <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> --}}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  {{--
+  <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> --}}
 
 
 
@@ -74,7 +77,7 @@
 
     .weather-container {
       position: absolute;
-      top: 80px;
+      top: 70px;
       right: 80px;
       color: #ffffff;
       font-size: 14px;
@@ -82,7 +85,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 10px;
+      gap: px;
     }
 
     .weather-container p {
@@ -101,13 +104,15 @@
     <div class="row align-items-center">
       <div class="col-1">
         <!-- Hospital Logo -->
-        <img src="https://github.com/bakaroti/RS/blob/main/img/logo-rs2.png?raw=true" alt="Hospital Logo" style="max-width: 90px;">
+        <img src="https://github.com/bakaroti/RS/blob/main/img/logo-rs2.png?raw=true" alt="Hospital Logo"
+          style="max-width: 90px;">
       </div>
       <div class="col-md-10">
         <!-- Hospital Name -->
         <h1 class="mt-3" style="color: #fff; font-weight: bold;">Rumah Sakit Haji</h1>
         <!-- Hospital Address -->
-        <p style="font-size: 18px; font-weight: bold; color: #fff;">Jl. Villa Melati Mas Raya No.5, Jelupang, Serpong Utara, South Tangerang City, Banten 15323</p>
+        <p style="font-size: 18px; font-weight: bold; color: #fff;">Jl. Villa Melati Mas Raya No.5, Jelupang, Serpong
+          Utara, South Tangerang City, Banten 15323</p>
       </div>
       <!-- Real-Time Clock -->
       <div class="col-md-1 text-end">
@@ -115,25 +120,81 @@
         <div class="weather-container" id="weatherContainer"></div>
       </div>
     </div>
-  </div>
-    <div class="w-50">
-      <label for="polieSelect" class="form-label" style="color: #fff; font-weight: bold;">Pilih Poli</label>
-      <select id="polieSelect" class="form-select">
-        @foreach ($polies as $poly)
+
+    {{-- <div class="container">
+      <div class="row justify-content-center">
+        <!-- Menggunakan justify-content-center untuk mengatur posisi horizontal di tengah -->
+        <div class="col-md-6">
+          <label for="polieSelect" class="form-label" style="color: #fff; font-weight: bold;">Pilih Poli</label>
+          <select id="polieSelect" class="form-select">
+            @foreach ($polies as $poly)
             <option value="{{ $poly->initial }}">{{ $poly->nama }}</option>
-        @endforeach
-      </select>
-    </div>
-    <button id="tambah-antrian" class="btn btn-primary">Ambil Nomor Antrian</button>
-    <div class="col text-light">Nomor antrian kamu : <span id="nomorAntrian"></span></div>
-  <!-- Running Text Section -->
-  <div class="running-text-container">
-    <div class="container">
-      <div class="running-text">
-        Running text example - This is a horizontally scrolling running text. This text will keep moving from right to left in an infinite loop.
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-6">
+          <button id="tambah-antrian" class="btn btn-primary">Ambil Nomor Antrian</button>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-3">
+        <!-- Menggunakan justify-content-center untuk mengatur posisi horizontal di tengah -->
+        <div class="col text-light">Nomor antrian kamu : <span id="nomorAntrian"></span></div>
+      </div>
+    </div> --}}
+
+    <div class="contaier">
+      <div class="row">
+        <div class="col-md-6 mt-5">
+          <div class="card" style="height:420px;">
+            <div class="card-body">
+              <label for="polieSelect" class="form-label fw-bold fs-5 pb-2">Pilih Poli</label>
+              <select id="polieSelect" class="form-select" style="text-transform: uppercase;">
+                @foreach ($polies as $poly)
+                <option value="{{ $poly->initial }}">{{ $poly->nama }}</option>
+                @endforeach
+              </select>
+              <div class="text-center fw-bold fs-2" style="text-transform: uppercase; padding-top:100px;">
+                <span>PETERNAK</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-5 ">
+          <div class="row">
+            <div class="col-12 ">
+              <button id="tambah-antrian" class="btn btn-dark w-100 fs-4 fw-bold" style="height: 70px;">Ambil Nomor
+                Antrian</button>
+            </div>
+            <div class="col-12 pt-4 ">
+              <div class="card" style=" height: 325px;">
+                <div class="card-header">
+                  <div class="col text-light fw-bold text-center text-dark" style="font-size:24px;">Nomor antrian
+                    kamu
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="text-center fw-bold" style="text-transform: uppercase; padding-top:65px; font-size: 70px">
+                    <span id="nomorAntrian"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <!-- Running Text Section -->
+    <div class="running-text-container bg-dark text-light py-3">
+      <div class="container">
+        <div class="running-text">
+          Running text example - This is a horizontally scrolling running text. This text will keep moving from right to
+          left in an infinite loop.
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 </body>
 @include('tiket/script')

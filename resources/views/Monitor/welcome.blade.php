@@ -7,7 +7,8 @@
   <link rel="icon" href="./img/logo-rs2.png" type="image/x-icon">
   <title>Rumah Sakit</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
   <style>
     body {
@@ -67,13 +68,13 @@
       top: 20px;
       right: 80px;
       color: #ffffff;
-      font-size: 45px;
+      font-size: 42px;
       font-weight: bold;
     }
 
     .weather-container {
       position: absolute;
-      top: 80px;
+      top: 70px;
       right: 80px;
       color: #ffffff;
       font-size: 14px;
@@ -101,13 +102,15 @@
     <div class="row align-items-center">
       <div class="col-1">
         <!-- Hospital Logo -->
-        <img src="https://github.com/bakaroti/RS/blob/main/img/logo-rs2.png?raw=true" alt="Hospital Logo" style="max-width: 90px;">
+        <img src="https://github.com/bakaroti/RS/blob/main/img/logo-rs2.png?raw=true" alt="Hospital Logo"
+          style="max-width: 90px;">
       </div>
       <div class="col-md-10">
         <!-- Hospital Name -->
         <h1 class="mt-3" style="color: #fff; font-weight: bold;">Rumah Sakit Haji</h1>
         <!-- Hospital Address -->
-        <p style="font-size: 18px; font-weight: bold; color: #fff;">Jl. Villa Melati Mas Raya No.5, Jelupang, Serpong Utara, South Tangerang City, Banten 15323</p>
+        <p style="font-size: 18px; font-weight: bold; color: #fff;">Jl. Villa Melati Mas Raya No.5, Jelupang, Serpong
+          Utara, South Tangerang City, Banten 15323</p>
       </div>
       <!-- Real-Time Clock -->
       <div class="col-md-1 text-end">
@@ -124,13 +127,16 @@
             <h5 class="card-title" style="font-size: 2rem;">Nomor Antrian</h5>
           </div>
           <div class="card-body">
-            <div class="badge badge-primary" style="font-size: 3rem; color: black;" id="poly{{ $poly[0]->initial ?? '-none' }}">{{ (isset($poly[0]->patient[0]) && $poly[0]->status) ? $poly[0]->patient[0]->antrian : '-' }}</div>
+            <div class="badge badge-primary" style="font-size: 3rem; color: black;"
+              id="poly{{ $poly[0]->initial ?? '-none' }}">{{ (isset($poly[0]->patient[0]) && $poly[0]->status) ?
+              $poly[0]->patient[0]->antrian : '-' }}</div>
             <h5 class="d-block">Poli : {{ $poly[0]->nama ?? '-' }}</h5>
           </div>
         </div>
       </div>
       <div class="col-5">
-        VIDEO
+        <iframe width="650" height="210" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0"
+          allowfullscreen></iframe>
       </div>
     </div>
     <div class="row gap-3">
@@ -140,7 +146,9 @@
             <h5 class="card-title" style="font-size: 2rem;">Nomor Antrian</h5>
           </div>
           <div class="card-body">
-            <div class="badge badge-primary" style="font-size: 3rem; color: black;" id="poly{{ $poly[1]->initial ?? '-none' }}">{{ (isset($poly[1]->patient[0]) && $poly[1]->status) ? $poly[1]->patient[0]->antrian : '-' }}</div>
+            <div class="badge badge-primary" style="font-size: 3rem; color: black;"
+              id="poly{{ $poly[1]->initial ?? '-none' }}">{{ (isset($poly[1]->patient[0]) && $poly[1]->status) ?
+              $poly[1]->patient[0]->antrian : '-' }}</div>
             <h5 class="d-block">Poli : {{ $poly[1]->nama ?? '-' }}</h5>
           </div>
         </div>
@@ -151,7 +159,9 @@
             <h5 class="card-title" style="font-size: 2rem;">Nomor Antrian</h5>
           </div>
           <div class="card-body">
-            <div class="badge badge-primary" style="font-size: 3rem; color: black;" id="poly{{ $poly[2]->initial ?? '-none' }}">{{ (isset($poly[2]->patient[0]) && $poly[2]->status) ? $poly[2]->patient[0]->antrian : '-' }}</div>
+            <div class="badge badge-primary" style="font-size: 3rem; color: black;"
+              id="poly{{ $poly[2]->initial ?? '-none' }}">{{ (isset($poly[2]->patient[0]) && $poly[2]->status) ?
+              $poly[2]->patient[0]->antrian : '-' }}</div>
             <h5 class="d-block">Poli : {{ $poly[2]->nama ?? '-' }}</h5>
           </div>
         </div>
@@ -162,24 +172,30 @@
             <h5 class="card-title" style="font-size: 2rem;">Nomor Antrian</h5>
           </div>
           <div class="card-body">
-            <div class="badge badge-primary" style="font-size: 3rem; color: black;" id="poly{{ $poly[3]->initial ?? '-none' }}">{{ (isset($poly[3]->patient[0]) && $poly[3]->status) ? $poly[3]->patient[0]->antrian : '-' }}</div>
+            <div class="badge badge-primary" style="font-size: 3rem; color: black;"
+              id="poly{{ $poly[3]->initial ?? '-none' }}">{{ (isset($poly[3]->patient[0]) && $poly[3]->status) ?
+              $poly[3]->patient[0]->antrian : '-' }}</div>
             <h5 class="d-block">Poli : {{ $poly[3]->nama ?? '-' }}</h5>
           </div>
         </div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
 
     <!-- Running Text Section -->
     <div class="running-text-container">
       <div class="container">
         <div class="running-text">
-          Running text example - This is a horizontally scrolling running text. This text will keep moving from right to left in an infinite loop.
+          Running text example - This is a horizontally scrolling running text. This text will keep moving from right to
+          left in an infinite loop.
         </div>
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
             Echo.channel(`show-nomor`)
