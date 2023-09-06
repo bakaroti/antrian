@@ -19,10 +19,11 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+    @vite('resources/css/app.css')
 </head>
 
 <body class="{{ $class ?? '' }}">
-
+    @vite('resources/js/app.js')
     @guest
     @yield('content')
     @endguest
