@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\DoctorAntrian;
+use App\Events\ShowNomor;
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use Illuminate\Http\Request;
@@ -42,5 +43,12 @@ class PatientController extends Controller
 
 
         // dd($request);
+    }
+
+    public function testing()
+    {
+        event(new ShowNomor('testing'));
+
+        return response()->json(['data' => 'test dijalankan']);
     }
 }

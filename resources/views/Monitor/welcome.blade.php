@@ -130,7 +130,8 @@
             <div class="badge badge-primary" style="font-size: 3rem; color: black;"
               id="poly{{ $poly[0]->initial ?? '-none' }}">{{ (isset($poly[0]->patient[0]) && $poly[0]->status) ?
               $poly[0]->patient[0]->antrian : '-' }}</div>
-            <h5 class="d-block">Poli : {{ $poly[0]->nama ?? '-' }}</h5>
+            <h5 class="d-block">Poli : <span id="nama-poly{{ $poly[0]->initial ?? '-none' }}">{{ $poly[0]->nama ?? '-'
+                }}</span></h5>
           </div>
         </div>
       </div>
@@ -149,7 +150,8 @@
             <div class="badge badge-primary" style="font-size: 3rem; color: black;"
               id="poly{{ $poly[1]->initial ?? '-none' }}">{{ (isset($poly[1]->patient[0]) && $poly[1]->status) ?
               $poly[1]->patient[0]->antrian : '-' }}</div>
-            <h5 class="d-block">Poli : {{ $poly[1]->nama ?? '-' }}</h5>
+            <h5 class="d-block">Poli : <span id="nama-poly{{ $poly[1]->initial ?? '-none' }}">{{ $poly[1]->nama ?? '-'
+                }}</span></h5>
           </div>
         </div>
       </div>
@@ -162,7 +164,8 @@
             <div class="badge badge-primary" style="font-size: 3rem; color: black;"
               id="poly{{ $poly[2]->initial ?? '-none' }}">{{ (isset($poly[2]->patient[0]) && $poly[2]->status) ?
               $poly[2]->patient[0]->antrian : '-' }}</div>
-            <h5 class="d-block">Poli : {{ $poly[2]->nama ?? '-' }}</h5>
+            <h5 class="d-block">Poli : <span id="nama-poly{{ $poly[2]->initial ?? '-none' }}">{{ $poly[2]->nama ?? '-'
+                }}</span></h5>
           </div>
         </div>
       </div>
@@ -175,7 +178,8 @@
             <div class="badge badge-primary" style="font-size: 3rem; color: black;"
               id="poly{{ $poly[3]->initial ?? '-none' }}">{{ (isset($poly[3]->patient[0]) && $poly[3]->status) ?
               $poly[3]->patient[0]->antrian : '-' }}</div>
-            <h5 class="d-block">Poli : {{ $poly[3]->nama ?? '-' }}</h5>
+            <h5 class="d-block">Poli : <span id="nama-poly{{ $poly[3]->initial ?? '-none' }}">{{ $poly[3]->nama ?? '-'
+                }}</span></h5>
           </div>
         </div>
       </div>
@@ -197,14 +201,42 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script>
+      let speech = new SpeechSynthesisUtterance();
+      speech.lang = 'id-ID';
+      speech.rate = 0.7;
+    </script>
+
+    <script>
+      function speak(data) {
+        if(data !== 'testing, 1, 2, 3, testing'){
+
+          const ruangan = document.querySelector('#nama-poly' + data.poly_initial).innerHTML;
+          
+          speech.text = data.id ? 'Nomor urut, ' + data.antrian + ', Masuk Keruangan poly , ' + ruangan : ' ';
+        } else {
+          speech.text = data;
+        }
+            window.speechSynthesis.speak(speech);
+            console.log(window.speechSynthesis.getVoices());
+      }
+    </script>
+    <script>
       document.addEventListener("DOMContentLoaded", function() {
             Echo.channel(`show-nomor`)
                 .listen('ShowNomor', (e) => {
-                    var data = e.data;
-                    // console.log('helo gaes');
-                    console.log(e.data);
 
+                  var data = e.data;
+                  if (data !== 'testing'){
+
+                    speak(data);
+                    // console.log('helo gaes');
+                    // console.log(e.data);
+                    
                     document.querySelector('#poly' + data.poly_initial).innerHTML = data.id ? data.antrian : data.value;
+                  }
+                  else {
+                    speak('testing, 1, 2, 3, testing');
+                  }
                     // var n = 1;
                     // e.data.forEach(function(nomor){
                     //     // console.log(tes);

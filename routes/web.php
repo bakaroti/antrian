@@ -46,6 +46,7 @@ Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('gue
 Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
 
 Route::post('/create-antrian', [PatientController::class, 'store'])->name('tambah-antrian');
+Route::post('/test-suara', [PatientController::class, 'testing'])->name('test-suara');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     //Dashboard Route

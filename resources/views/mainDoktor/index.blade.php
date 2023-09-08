@@ -51,6 +51,8 @@
                                     Selanjutnya</button>
                             <button id="hapus-antrian" class="btn btn-danger my-3" @if (!$doctors->poly->status)
                                 style="display: none;" @endif>Hapus Antrian</button>
+                            <button id="test-suara" class="btn btn-primary my-3">Test Suara Monitor</button>
+                            <div id="cd-suara"></div>
                         </div>
                     </div>
                 </div>
@@ -217,6 +219,45 @@
                     document.querySelector('#ambil-antrian').style.display = 'block';
                     document.querySelector('#hapus-antrian').style.display = 'none';
                     document.querySelector('#antrian-selanjutnya').style.display = 'none';
+                }
+            })
+        });
+
+        $('#test-suara').click(function() {
+            // stat = 0;
+            // console.log($('#poli').val());
+            // var tbody = document.getElementById("table-content");
+            // var antrian = tbody.getElementsByTagName("tr")[0] ? tbody.getElementsByTagName("tr")[0].cells[1]
+            //     .textContent : '-';
+            $.ajax({
+                url: '{{ route('test-suara') }}',
+                type: "POST",
+                data: {
+                    _token : '{{ csrf_token() }}'
+                },  
+                success: function(response) {
+                    console.log(response.data);
+                    const teks = document.querySelector('#cd-suara');
+                    const tombol = document.querySelector('#test-suara');
+                    var second = 5;
+                    teks.style.display = 'block';   
+                    tombol.disabled = true;
+                    document.querySelector('#antrian-selanjutnya').disabled = true;
+                    document.querySelector('#ambil-antrian').disabled = true;
+                    
+                    var cd = setInterval(() => {
+                        if (second > 0 ) {
+                            teks.innerHTML = 'Tes uji suara dijalankan, cooldown ' + second + ' detik';
+                            second--;
+                        } else {
+                            teks.style.display = 'none';
+                            tombol.disabled = false;
+                            document.querySelector('#antrian-selanjutnya').disabled = false;
+                            document.querySelector('#ambil-antrian').disabled = false;
+                            clearInterval(cd);
+                            // teks.innerHTML = 'Tes uji suara dijalankan, cooldown ' + second + ' detik';
+                        }
+                    }, 1000)
                 }
             })
         });

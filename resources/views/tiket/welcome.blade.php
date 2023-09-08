@@ -154,7 +154,7 @@
                 @endforeach
               </select>
               <div class="text-center fw-bold fs-2" style="text-transform: uppercase; padding-top:100px;">
-                <span>PETERNAK</span>
+                <span id="selectedValue"></span>
               </div>
             </div>
           </div>
@@ -196,5 +196,13 @@
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+      const selectElement = document.getElementById('polieSelect');
+        const spanElement = document.getElementById('selectedValue');
+        selectElement.addEventListener('change', function () {
+          const nama = selectElement.options[selectElement.selectedIndex].text;
+          spanElement.textContent = nama;
+        });
+    </script>
 </body>
 @include('tiket/script')
