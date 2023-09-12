@@ -28,6 +28,7 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\DoktorController;
 use App\Http\Controllers\monitorAjaxController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\tiketAjaxControllet;
 use App\Http\Controllers\TiketController;
@@ -77,6 +78,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/details-poli/{id}', [AdminController::class, 'detailsPoli'])->name('detailsPoli');
     Route::post('/update-poli/{id}', [AdminController::class, 'updatePoli'])->name('updatePoli');
     Route::post('/delete-poli/{id}', [AdminController::class, 'deletePoli'])->name('deletePoli');
+
+    Route::put('/set-monitorVideo', [AdminController::class, 'setVidMonitor'])->name('setVidMonitor');
 });
 
 //DOKTOR LOGIN DAN SELESAI ( ARYA )!!
@@ -98,11 +101,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-polie', [tiketAjaxControllet::class, 'index']);
     Route::post('/tiketAjax', [tiketAjaxControllet::class, 'coba'])->name('create-antrian');
     Route::get('/testevent', [DoktorController::class, 'testing']);
-    Route::get('/monitor', function () {
-        return view('Monitor.welcome', [
-            'poly' => Poly::paginate(4)
-        ]);
-    })->name('monitor');
+    // Route::get('/monitor', function () {
+    //     return view('Monitor.welcome', [
+    //         'poly' => Poly::paginate(4)
+    //     ]);
+    // })->name('monitor');
+    Route::get('/monitor', [MonitorController::class, 'index'])->name('monitor');
     Route::get('/user', [UserController::class, 'index'])->name('userIndex');
     Route::get('profile', [UserProfileController::class, 'show'])->name('profile');
 
@@ -110,14 +114,6 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('profile');
     });
 });
-
-
-
-
-
-
-
-
 
 //TESTING JANGAN DI UBAH!!
 Route::middleware(['auth'])->group(function () {

@@ -143,6 +143,26 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="card mt-2">
+                <div class="card-header pb-0 p-3">
+                    <h6 class="mb-0">Recent Patient</h6>
+                </div>
+                <div class="card-body p-3">
+                    <form role="form" action="{{ route('setVidMonitor') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <div class="mb-3">
+                                <label id="monitor" for="monitor">Set Monitor Video</label>
+                                <input type="monitor" id="monitor" name="monitor" class="form-control" id="monitor"
+                                    value="{{ $link->link_youtube }}" placeholder="ID Video (Youtube)" required
+                                    onchange="this.form.submit()">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     {{-- <div class="row mt-4">

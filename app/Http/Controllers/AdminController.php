@@ -10,6 +10,7 @@ use App\Models\Poli;
 use App\Models\Poly;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Websitesetting;
 use GuzzleHttp\Psr7\Query;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -23,8 +24,9 @@ class AdminController extends Controller
         $totalAntrian = Patient::count();
         $totalUser = User::count();
         $totalDoctor = Doctor::count();
-        $patients = Patient::all();
-        return view('admin.dashboard', compact('polis', 'patients', 'totalAntrian', 'totalUser', 'totalDoctor'));
+        $patients = Patient::all()->take(3);
+        $link = Websitesetting::all()->first();
+        return view('admin.dashboard', compact('polis', 'link', 'patients', 'totalAntrian', 'totalUser', 'totalDoctor'));
     }
 
 
@@ -294,6 +296,23 @@ class AdminController extends Controller
             return redirect()->route('setPoli')->with('success', 'Data Poli berhasil didelete.');
         } catch (QueryException $e) {
             return redirect()->back()->with('error', 'Error: Failed to update Data.');
+        }
+    }
+
+    public function setVidMonitor(Request $request)
+    {
+        try {
+            $request->validate([
+                'monitor' => 'required|max:255',
+            ]);
+
+            $websiteSetting = Websitesetting::first();
+            $websiteSetting->link_youtube = $request->input('monitor'); // Menggunakan input 'link_youtube'
+            $websiteSetting->save();
+
+            return redirect()->route('home')->with('success', 'Link Video Monitor berhasil diperbarui.');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', 'Error: Failed to update data.');
         }
     }
 }
