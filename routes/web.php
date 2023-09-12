@@ -32,6 +32,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\tiketAjaxControllet;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MonitorController;
 use App\Models\Patient;
 use App\Models\Poly;
 
@@ -98,11 +99,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-polie', [tiketAjaxControllet::class, 'index']);
     Route::post('/tiketAjax', [tiketAjaxControllet::class, 'coba'])->name('create-antrian');
     Route::get('/testevent', [DoktorController::class, 'testing']);
-    Route::get('/monitor', function () {
-        return view('Monitor.welcome', [
-            'poly' => Poly::paginate(4)
-        ]);
-    })->name('monitor');
+    Route::get('/monitor', [MonitorController::class, 'monitor'])->name('monitor');
+    // Route::get('/monitor', function () {
+    //     return view('Monitor.welcome', [
+    //         'poly' => Poly::paginate(4)
+    //     ]);
+    // })->name('monitor');
     Route::get('/user', [UserController::class, 'index'])->name('userIndex');
     Route::get('profile', [UserProfileController::class, 'show'])->name('profile');
 

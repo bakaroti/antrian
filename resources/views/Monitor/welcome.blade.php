@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="col-5">
-        <iframe width="650" height="210" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0"
+        <iframe width="650" height="210" src="https://www.youtube.com/embed/{{$link->link_youtube}}" frameborder="0"
           allowfullscreen></iframe>
       </div>
     </div>
